@@ -52,7 +52,7 @@ bool ArgumentsParser::getOption(string nom)
 
 vector<string> ArgumentsParser::getNomsOptions()
 {
-    vector<string> liste(2);
+    vector<string> liste(3);
     liste[0]="v"; /// Verbose
     liste[1]="l"; /// LaTeX
     liste[2]="i"; /// Input

@@ -66,15 +66,13 @@ void insertConstraint(std::vector<Rational>* expression, Dictionnary::quantifier
     delete expression;
 }
 
-void update(std::vector<std::vector<Rational>> dico)
+void update(std::vector<std::vector<Rational>>& dico)
 {
-    unsigned int old_n = static_cast<unsigned int>(dico[0].size());
     unsigned int old_m = static_cast<unsigned int>(dico.size()) -1 ;
-    std::cout << "resize : " << old_n + old_m << std::endl;
     for (unsigned int constraint = 0; constraint < dico.size(); ++constraint)
-        dico[constraint].resize(old_n + old_m,Rational(0));
+        dico[constraint].resize(n + old_m,Rational(0));
     for (unsigned int constraint = 1; constraint < dico.size(); ++constraint)
-        dico[constraint][old_n+constraint] = Rational(-1);
+        dico[constraint][n+constraint-1] = Rational(-1);
 }
 
 %}
@@ -87,7 +85,7 @@ void update(std::vector<std::vector<Rational>> dico)
 	std::pair<unsigned int,Rational>* paire;
 	std::vector<Rational>* vect;
 	Dictionnary::quantifier quant;
-    int returnValue;
+	int returnValue;
 }
 
 %type <dictio> expression

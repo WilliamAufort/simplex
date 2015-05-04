@@ -50,7 +50,7 @@
 #  endif
 # endif
 
-#line 116 "parser/parser.y" // location.cc:291
+#line 114 "parser/parser.y" // location.cc:291
 namespace SimplexParser {
 #line 56 "parser/position.hh" // location.cc:291
   /// Abstract a position.
@@ -174,7 +174,7 @@ namespace SimplexParser {
     return ostr << pos.line << '.' << pos.column;
   }
 
-#line 116 "parser/parser.y" // location.cc:291
+#line 114 "parser/parser.y" // location.cc:291
 } // SimplexParser
 #line 180 "parser/position.hh" // location.cc:291
 #endif // !YY_YY_PARSER_POSITION_HH_INCLUDED

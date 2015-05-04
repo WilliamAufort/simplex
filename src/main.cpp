@@ -30,21 +30,14 @@ Dictionnary parseDictionnaryFile(string fileName)
 
 int main (int argc, char* argv[])
 {
-    if (argc != 2)
-    {
-        cerr << "Usage : ./simplex file.lp" << endl;
-        return (EXIT_FAILURE);
-    }
-
     ArgumentsParser arguments(ArgumentsParser::getNomsOptions());
     arguments.parse(argc, argv);
-    Dictionnary dico = parseDictionnaryFile(arguments.getArgument(0));
-    dico.stupidPrinter();
 
     if(arguments.demandeAide())
     {
         cout << endl<<"Syntaxes :" << endl;
         cout << "   ./simplex (-i file.lp) (-l output.tex) (-v)" << endl << endl;
+        cout << "-i               Input (.lp file)" << endl;
         cout << "-l               Output a LaTeX description of the dictionnaries" << endl;
         cout << "-v               Verbose" << endl;
         cout << "-h               You are here" << endl;
@@ -55,24 +48,19 @@ int main (int argc, char* argv[])
     Dictionnary dico;
 
     if (arguments.getOption("i"))
-    {
-        ArgumentsParser arguments(ArgumentsParser::getNomsOptions());
-        arguments.parse(argc, argv);
         dico = parseDictionnaryFile(arguments.getArgument(0));
-        dico.stupidPrinter();
-    }
     else
         dico = unbounded; /// If you want another example, change here
 
     if (arguments.getOption("l"))
     {
-        unbounded.solveLaTeX(arguments.getOption("v"));
-        unbounded.saveCodeLaTeX(arguments.getArgument(0));
+        dico.solveLaTeX(arguments.getOption("v"));
+        dico.saveCodeLaTeX(arguments.getArgument(0));
         cout << "LaTeX writting successfully performed in " << arguments.getArgument(1) << endl;
     }
     else
     {
-        unbounded.solve(arguments.getOption("v"));
+        dico.solve(arguments.getOption("v"));
     }
 	return EXIT_SUCCESS;
 }

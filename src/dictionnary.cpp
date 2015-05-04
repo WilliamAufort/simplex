@@ -7,9 +7,14 @@ using namespace std;
 Dictionnary::Dictionnary(vector<vector<Rational>> _dico, map<unsigned int,string> _names)
 : dico(_dico), basic_vars(vector<unsigned int>()), names(vector<string>()), latex(string()), nb_dico(0)
 {
+    names.push_back("objective");
     /// init names
     for (unsigned int i = 1; i <= _names.size(); ++i)
         names.push_back(_names[i]);
+
+    /// Names for slack variables
+    for (unsigned int i = 1; i < dico.size(); ++i)
+        names.push_back("slack_"+to_string(i));
 
     /// dico[0].size() = n + m + 1
     /// dico.size() = m (nb of constraints) + 1 (z)
@@ -279,7 +284,8 @@ void Dictionnary::stupidPrinter()
 {
     for (unsigned int i = 0; i < dico.size(); ++i)
     {
-        for (unsigned int j = 0; j < dico[j].size(); ++j)
+        cout << "size :" << dico[i].size() << endl;
+        for (unsigned int j = 0; j < dico[i].size(); ++j)
             cout << dico[i][j] << " ";
         cout << endl;
     }
