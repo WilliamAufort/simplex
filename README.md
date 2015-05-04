@@ -5,6 +5,6 @@ To compile, use
 	make
   
 To execute the program the first time
-	./simplex
+	./simplex --help
   
 to see the options
