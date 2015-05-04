@@ -26,3 +26,22 @@
 *.exe
 *.out
 *.app
+simplex
+obj/*
+
+#Parseur
+parser/location.hh
+parser/position.hh
+parser/simplexLexer.cpp
+parser/simplexParser.cpp
+parser/simplexParser.hpp
+parser/simplexParser.output
+parser/stack.hh
+
+tests/latex/*
+
+# Codeblocks
+*.cbp
+*.layout
+
+*~
