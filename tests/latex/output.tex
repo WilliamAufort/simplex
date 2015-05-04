@@ -1,0 +1,39 @@
+\documentclass{article} 
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath} 
+\usepackage{amssymb} 
+\usepackage{datetime} 
+ 
+\title{The simplex algorithm execution} 
+\author{Simplex Algorithm} 
+\date{\today ~-- \currenttime} 
+ 
+\begin{document} 
+ 
+\maketitle 
+ 
+Let's study the following dictionnary 
+ 
+\[ 
+(D_0):\qquad \left \{ 
+\begin{array}{rc*3{cr}} 
+x_3 & =& + &4& - &x_1 & + &x_2 \\ 
+\hline 
+z & =& && + &x_1 & + &x_2 \end{array} \right. 
+\] 
+ 
+$x_1$ enters, $x_3$ leaves. 
+ 
+After this step, we get the new dictionnary : 
+ 
+\[ 
+(D_1):\qquad \left \{ 
+\begin{array}{rc*3{cr}} 
+x_1 & =& + &4& + &x_2 & - &x_3 \\ 
+\hline 
+z & =& + &4& + &2x_2 & - &x_3 \end{array} \right. 
+\] 
+ 
+$x_2$ enters, but we don't have any bound on it given by the dictionnary. So the domain is unbounded. 
+ 
+ \end{document}

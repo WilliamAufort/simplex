@@ -1,0 +1,627 @@
+Terminals unused in grammar
+
+   END_OF_FILE
+
+
+Grammar
+
+    0 $accept: input TEOF
+
+    1 input: expression TEOF
+
+    2 expression: objectif ST constraints BOUNDS bounds VARIABLES variables END
+
+    3 objectif: MAXIMIZE expr
+    4         | MINIMIZE expr
+
+    5 expr: init_term
+    6     | init_term expr_end
+
+    7 expr_end: term
+    8         | term expr_end
+
+    9 init_term: FLOAT
+   10          | PLUS FLOAT
+   11          | MINUS FLOAT
+   12          | NAME
+   13          | PLUS NAME
+   14          | MINUS NAME
+   15          | FLOAT NAME
+   16          | MINUS FLOAT NAME
+
+   17 term: PLUS FLOAT
+   18     | MINUS FLOAT
+   19     | PLUS NAME
+   20     | MINUS NAME
+   21     | PLUS FLOAT NAME
+   22     | MINUS FLOAT NAME
+
+   23 constraints: constraint
+   24            | constraint constraints
+
+   25 constraint: expr operator FLOAT
+
+   26 bounds: bound
+   27       | bound bounds
+
+   28 bound: FLOAT operator NAME operator FLOAT
+   29      | NAME operator FLOAT
+
+   30 operator: GREATER_EQ
+   31         | LOWER_EQ
+   32         | EQUAL
+
+   33 variables: NAME variables
+   34          | NAME
+
+
+Terminals, with rules where they appear
+
+TEOF (0) 0 1
+error (256)
+FLOAT (258) 9 10 11 15 16 17 18 21 22 25 28 29
+NAME (259) 12 13 14 15 16 19 20 21 22 28 29 33 34
+GREATER_EQ (260) 30
+LOWER_EQ (261) 31
+EQUAL (262) 32
+PLUS (263) 10 13 17 19 21
+MINUS (264) 11 14 16 18 20 22
+MINIMIZE (265) 4
+MAXIMIZE (266) 3
+ST (267) 2
+BOUNDS (268) 2
+VARIABLES (269) 2
+END (270) 2
+END_OF_FILE (271)
+
+
+Nonterminals, with rules where they appear
+
+$accept (17)
+    on left: 0
+input (18)
+    on left: 1, on right: 0
+expression (19)
+    on left: 2, on right: 1
+objectif (20)
+    on left: 3 4, on right: 2
+expr (21)
+    on left: 5 6, on right: 3 4 25
+expr_end (22)
+    on left: 7 8, on right: 6 8
+init_term (23)
+    on left: 9 10 11 12 13 14 15 16, on right: 5 6
+term (24)
+    on left: 17 18 19 20 21 22, on right: 7 8
+constraints (25)
+    on left: 23 24, on right: 2 24
+constraint (26)
+    on left: 25, on right: 23 24
+bounds (27)
+    on left: 26 27, on right: 2 27
+bound (28)
+    on left: 28 29, on right: 26 27
+operator (29)
+    on left: 30 31 32, on right: 25 28 29
+variables (30)
+    on left: 33 34, on right: 2 33
+
+
+State 0
+
+    0 $accept: . input TEOF
+
+    MINIMIZE  shift, and go to state 1
+    MAXIMIZE  shift, and go to state 2
+
+    input       go to state 3
+    expression  go to state 4
+    objectif    go to state 5
+
+
+State 1
+
+    4 objectif: MINIMIZE . expr
+
+    FLOAT  shift, and go to state 6
+    NAME   shift, and go to state 7
+    PLUS   shift, and go to state 8
+    MINUS  shift, and go to state 9
+
+    expr       go to state 10
+    init_term  go to state 11
+
+
+State 2
+
+    3 objectif: MAXIMIZE . expr
+
+    FLOAT  shift, and go to state 6
+    NAME   shift, and go to state 7
+    PLUS   shift, and go to state 8
+    MINUS  shift, and go to state 9
+
+    expr       go to state 12
+    init_term  go to state 11
+
+
+State 3
+
+    0 $accept: input . TEOF
+
+    TEOF  shift, and go to state 13
+
+
+State 4
+
+    1 input: expression . TEOF
+
+    TEOF  shift, and go to state 14
+
+
+State 5
+
+    2 expression: objectif . ST constraints BOUNDS bounds VARIABLES variables END
+
+    ST  shift, and go to state 15
+
+
+State 6
+
+    9 init_term: FLOAT .
+   15          | FLOAT . NAME
+
+    NAME  shift, and go to state 16
+
+    $default  reduce using rule 9 (init_term)
+
+
+State 7
+
+   12 init_term: NAME .
+
+    $default  reduce using rule 12 (init_term)
+
+
+State 8
+
+   10 init_term: PLUS . FLOAT
+   13          | PLUS . NAME
+
+    FLOAT  shift, and go to state 17
+    NAME   shift, and go to state 18
+
+
+State 9
+
+   11 init_term: MINUS . FLOAT
+   14          | MINUS . NAME
+   16          | MINUS . FLOAT NAME
+
+    FLOAT  shift, and go to state 19
+    NAME   shift, and go to state 20
+
+
+State 10
+
+    4 objectif: MINIMIZE expr .
+
+    $default  reduce using rule 4 (objectif)
+
+
+State 11
+
+    5 expr: init_term .
+    6     | init_term . expr_end
+
+    PLUS   shift, and go to state 21
+    MINUS  shift, and go to state 22
+
+    $default  reduce using rule 5 (expr)
+
+    expr_end  go to state 23
+    term      go to state 24
+
+
+State 12
+
+    3 objectif: MAXIMIZE expr .
+
+    $default  reduce using rule 3 (objectif)
+
+
+State 13
+
+    0 $accept: input TEOF .
+
+    $default  accept
+
+
+State 14
+
+    1 input: expression TEOF .
+
+    $default  reduce using rule 1 (input)
+
+
+State 15
+
+    2 expression: objectif ST . constraints BOUNDS bounds VARIABLES variables END
+
+    FLOAT  shift, and go to state 6
+    NAME   shift, and go to state 7
+    PLUS   shift, and go to state 8
+    MINUS  shift, and go to state 9
+
+    expr         go to state 25
+    init_term    go to state 11
+    constraints  go to state 26
+    constraint   go to state 27
+
+
+State 16
+
+   15 init_term: FLOAT NAME .
+
+    $default  reduce using rule 15 (init_term)
+
+
+State 17
+
+   10 init_term: PLUS FLOAT .
+
+    $default  reduce using rule 10 (init_term)
+
+
+State 18
+
+   13 init_term: PLUS NAME .
+
+    $default  reduce using rule 13 (init_term)
+
+
+State 19
+
+   11 init_term: MINUS FLOAT .
+   16          | MINUS FLOAT . NAME
+
+    NAME  shift, and go to state 28
+
+    $default  reduce using rule 11 (init_term)
+
+
+State 20
+
+   14 init_term: MINUS NAME .
+
+    $default  reduce using rule 14 (init_term)
+
+
+State 21
+
+   17 term: PLUS . FLOAT
+   19     | PLUS . NAME
+   21     | PLUS . FLOAT NAME
+
+    FLOAT  shift, and go to state 29
+    NAME   shift, and go to state 30
+
+
+State 22
+
+   18 term: MINUS . FLOAT
+   20     | MINUS . NAME
+   22     | MINUS . FLOAT NAME
+
+    FLOAT  shift, and go to state 31
+    NAME   shift, and go to state 32
+
+
+State 23
+
+    6 expr: init_term expr_end .
+
+    $default  reduce using rule 6 (expr)
+
+
+State 24
+
+    7 expr_end: term .
+    8         | term . expr_end
+
+    PLUS   shift, and go to state 21
+    MINUS  shift, and go to state 22
+
+    $default  reduce using rule 7 (expr_end)
+
+    expr_end  go to state 33
+    term      go to state 24
+
+
+State 25
+
+   25 constraint: expr . operator FLOAT
+
+    GREATER_EQ  shift, and go to state 34
+    LOWER_EQ    shift, and go to state 35
+    EQUAL       shift, and go to state 36
+
+    operator  go to state 37
+
+
+State 26
+
+    2 expression: objectif ST constraints . BOUNDS bounds VARIABLES variables END
+
+    BOUNDS  shift, and go to state 38
+
+
+State 27
+
+   23 constraints: constraint .
+   24            | constraint . constraints
+
+    FLOAT  shift, and go to state 6
+    NAME   shift, and go to state 7
+    PLUS   shift, and go to state 8
+    MINUS  shift, and go to state 9
+
+    $default  reduce using rule 23 (constraints)
+
+    expr         go to state 25
+    init_term    go to state 11
+    constraints  go to state 39
+    constraint   go to state 27
+
+
+State 28
+
+   16 init_term: MINUS FLOAT NAME .
+
+    $default  reduce using rule 16 (init_term)
+
+
+State 29
+
+   17 term: PLUS FLOAT .
+   21     | PLUS FLOAT . NAME
+
+    NAME  shift, and go to state 40
+
+    $default  reduce using rule 17 (term)
+
+
+State 30
+
+   19 term: PLUS NAME .
+
+    $default  reduce using rule 19 (term)
+
+
+State 31
+
+   18 term: MINUS FLOAT .
+   22     | MINUS FLOAT . NAME
+
+    NAME  shift, and go to state 41
+
+    $default  reduce using rule 18 (term)
+
+
+State 32
+
+   20 term: MINUS NAME .
+
+    $default  reduce using rule 20 (term)
+
+
+State 33
+
+    8 expr_end: term expr_end .
+
+    $default  reduce using rule 8 (expr_end)
+
+
+State 34
+
+   30 operator: GREATER_EQ .
+
+    $default  reduce using rule 30 (operator)
+
+
+State 35
+
+   31 operator: LOWER_EQ .
+
+    $default  reduce using rule 31 (operator)
+
+
+State 36
+
+   32 operator: EQUAL .
+
+    $default  reduce using rule 32 (operator)
+
+
+State 37
+
+   25 constraint: expr operator . FLOAT
+
+    FLOAT  shift, and go to state 42
+
+
+State 38
+
+    2 expression: objectif ST constraints BOUNDS . bounds VARIABLES variables END
+
+    FLOAT  shift, and go to state 43
+    NAME   shift, and go to state 44
+
+    bounds  go to state 45
+    bound   go to state 46
+
+
+State 39
+
+   24 constraints: constraint constraints .
+
+    $default  reduce using rule 24 (constraints)
+
+
+State 40
+
+   21 term: PLUS FLOAT NAME .
+
+    $default  reduce using rule 21 (term)
+
+
+State 41
+
+   22 term: MINUS FLOAT NAME .
+
+    $default  reduce using rule 22 (term)
+
+
+State 42
+
+   25 constraint: expr operator FLOAT .
+
+    $default  reduce using rule 25 (constraint)
+
+
+State 43
+
+   28 bound: FLOAT . operator NAME operator FLOAT
+
+    GREATER_EQ  shift, and go to state 34
+    LOWER_EQ    shift, and go to state 35
+    EQUAL       shift, and go to state 36
+
+    operator  go to state 47
+
+
+State 44
+
+   29 bound: NAME . operator FLOAT
+
+    GREATER_EQ  shift, and go to state 34
+    LOWER_EQ    shift, and go to state 35
+    EQUAL       shift, and go to state 36
+
+    operator  go to state 48
+
+
+State 45
+
+    2 expression: objectif ST constraints BOUNDS bounds . VARIABLES variables END
+
+    VARIABLES  shift, and go to state 49
+
+
+State 46
+
+   26 bounds: bound .
+   27       | bound . bounds
+
+    FLOAT  shift, and go to state 43
+    NAME   shift, and go to state 44
+
+    $default  reduce using rule 26 (bounds)
+
+    bounds  go to state 50
+    bound   go to state 46
+
+
+State 47
+
+   28 bound: FLOAT operator . NAME operator FLOAT
+
+    NAME  shift, and go to state 51
+
+
+State 48
+
+   29 bound: NAME operator . FLOAT
+
+    FLOAT  shift, and go to state 52
+
+
+State 49
+
+    2 expression: objectif ST constraints BOUNDS bounds VARIABLES . variables END
+
+    NAME  shift, and go to state 53
+
+    variables  go to state 54
+
+
+State 50
+
+   27 bounds: bound bounds .
+
+    $default  reduce using rule 27 (bounds)
+
+
+State 51
+
+   28 bound: FLOAT operator NAME . operator FLOAT
+
+    GREATER_EQ  shift, and go to state 34
+    LOWER_EQ    shift, and go to state 35
+    EQUAL       shift, and go to state 36
+
+    operator  go to state 55
+
+
+State 52
+
+   29 bound: NAME operator FLOAT .
+
+    $default  reduce using rule 29 (bound)
+
+
+State 53
+
+   33 variables: NAME . variables
+   34          | NAME .
+
+    NAME  shift, and go to state 53
+
+    $default  reduce using rule 34 (variables)
+
+    variables  go to state 56
+
+
+State 54
+
+    2 expression: objectif ST constraints BOUNDS bounds VARIABLES variables . END
+
+    END  shift, and go to state 57
+
+
+State 55
+
+   28 bound: FLOAT operator NAME operator . FLOAT
+
+    FLOAT  shift, and go to state 58
+
+
+State 56
+
+   33 variables: NAME variables .
+
+    $default  reduce using rule 33 (variables)
+
+
+State 57
+
+    2 expression: objectif ST constraints BOUNDS bounds VARIABLES variables END .
+
+    $default  reduce using rule 2 (expression)
+
+
+State 58
+
+   28 bound: FLOAT operator NAME operator FLOAT .
+
+    $default  reduce using rule 28 (bound)
