@@ -55,7 +55,7 @@ int main (int argc, char* argv[])
     if (arguments.getOption("l"))
     {
         dico.solveLaTeX(arguments.getOption("v"));
-        dico.saveCodeLaTeX(arguments.getArgument(0));
+        dico.saveCodeLaTeX(arguments.getArgument(1));
         cout << "LaTeX writting successfully performed in " << arguments.getArgument(1) << endl;
     }
     else
