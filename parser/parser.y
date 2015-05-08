@@ -167,7 +167,9 @@ constraints:
 ;
 
 constraint:
-	    expr operator FLOAT { inserer(new std::pair<unsigned int, Rational>(0,Rational(-$3)),$1); insertConstraint($1,$2); $$ = 0;}
+	      expr operator FLOAT { inserer(new std::pair<unsigned int, Rational>(0,Rational(-$3)),$1); insertConstraint($1,$2); $$ = 0;}
+	    | expr operator PLUS FLOAT { inserer(new std::pair<unsigned int, Rational>(0,Rational(-$4)),$1); insertConstraint($1,$2); $$ = 0;}
+	    | expr operator MINUS FLOAT { inserer(new std::pair<unsigned int, Rational>(0,Rational($4)),$1); insertConstraint($1,$2); $$ = 0;}
 ;
 
 bounds:
